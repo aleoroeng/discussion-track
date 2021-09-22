@@ -1,5 +1,6 @@
 const atlas_psswd = "";
-exports.constants = {
-	atlas_uri: `url:<${atlas_psswd}>`,
-	user_controller: "http://localhost:4000/",
-};
+ATLAS_URI = `url:<${atlas_psswd}>`;
+USER_CONTROLLER = "http://localhost:4000/";
+
+exports.ATLAS_URI = ATLAS_URI;
+exports.USER_CONTROLLER = this.USER_CONTROLLER;
