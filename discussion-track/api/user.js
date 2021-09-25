@@ -2,6 +2,7 @@ const user_db = require("./models/user_db");
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const bcrypt = require("bcrypt");
 
 // Middleware
 app.use(cors());
@@ -9,14 +10,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const PORT = 4000;
+const SALT_ROUNDS = 10;
 user_model = {};
 
 app.post("/user", (req, res) => {
-	console.log(req.body);
-
 	newUser = req.body;
-	user_db.add_user(user_model, newUser).then((added_user) => {
-		res.send(added_user);
+	bcrypt.hash(newUser.password, SALT_ROUNDS).then((hash) => {
+		newUser.password = hash;
+		user_db.add_user(user_model, newUser).then((added_user) => {
+			res.send(added_user);
+		});
 	});
 });
 
