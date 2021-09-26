@@ -27,5 +27,19 @@ async function add_user(user_model, user) {
 	return new_user;
 }
 
+async function find_all_users(user_model) {
+	let users_fetched = await user_model.find({});
+	users_json = [];
+
+	users_fetched.forEach((element) => {
+		users_json.push({
+			id: element._id,
+			first_name: element.first_name,
+			last_name: element.last_name,
+		});
+	});
+	return users_json;
+}
 exports.add_user = add_user;
 exports.setup = setup;
+exports.find_all_users = find_all_users;

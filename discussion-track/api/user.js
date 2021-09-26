@@ -23,7 +23,12 @@ app.post("/user", (req, res) => {
 	});
 });
 
-app.get("/user", (req, res) => {});
+app.get("/users", (req, res) => {
+	user_db.find_all_users(user_model).then((users) => {
+		console.log(users);
+		res.send(users);
+	});
+});
 
 app.listen(PORT, () => {
 	user_db.setup().then((model) => {
