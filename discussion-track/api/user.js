@@ -30,6 +30,22 @@ app.get("/users", (req, res) => {
 	});
 });
 
+app.post("/login", (req, res) => {
+	username = req.body.username;
+	console.log(req.body);
+	user_db.find_user_by_username(user_model, username).then((user_fetched) => {
+		console.log(user_fetched);
+		bcrypt
+			.compare(req.body.password, user_fetched[0].password)
+			.then((result) => {
+				if (result) {
+					res.send("Good login");
+				} else {
+					res.send("Bad login");
+				}
+			});
+	});
+});
 app.listen(PORT, () => {
 	user_db.setup().then((model) => {
 		console.log(model);

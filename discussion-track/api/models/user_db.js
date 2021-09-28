@@ -27,6 +27,11 @@ async function add_user(user_model, user) {
 	return new_user;
 }
 
+async function find_user_by_username(user_model, username) {
+	let user_fetched = await user_model.find({ username: username });
+	return user_fetched;
+}
+
 async function find_all_users(user_model) {
 	let users_fetched = await user_model.find({});
 	users_json = [];
@@ -36,6 +41,8 @@ async function find_all_users(user_model) {
 			id: element._id,
 			first_name: element.first_name,
 			last_name: element.last_name,
+			password: element.password,
+			username: element.username,
 		});
 	});
 	return users_json;
@@ -43,3 +50,4 @@ async function find_all_users(user_model) {
 exports.add_user = add_user;
 exports.setup = setup;
 exports.find_all_users = find_all_users;
+exports.find_user_by_username = find_user_by_username;
